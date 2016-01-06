@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html  lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body  style="background-image: url(wallpaper.jpg); background-size:cover; background-repeat:   no-repeat; background-position: center center; ; zoom: 140%; background-size: 1200px 620px; background-repeat: no-repeat;">
+
+<script>
+    function submitAnswer() {
+        //sets visibility of items depending on viewer
+        if (document.getElementById("answers1").style.visibility=="hidden") {
+            document.getElementById("answers1").style.visibility = "visible";
+            document.getElementById("answers2").style.visibility = "visible";
+            document.getElementById("answers3").style.visibility = "visible";
+        }
+
+        //sets up ajax request
+        var con = new XMLHttpRequest();
+        con.onreadystatechange = function() {
+            if (con.readyState == 4 && con.status == 200) {
+
+                //checks for invalid user
+                if(con.responseText.trim() == "invalid_user"){
+                    alert("You have already taken your quiz for the day, please come back tomorrow.")
+                    location.reload();
+                } else {
+
+                    //parses json
+                    var question_info = JSON.parse(con.responseText);
+
+                    //renders info if quiz is fiinished
+                    if (question_info.quiz_finished == "true") {
+                        var user_average = question_info.user_correct / question_info.user_attempted;
+                        var total_average = question_info.total_correct / question_info.total_attempted;
+
+                        alert("Your personal score was ".concat(user_average * 100).concat("% and the overall average for this quiz is ".concat(total_average * 100).concat("%.")));
+                        location.reload();
+                    } else {
+                        //renders question info if quiz isn't finished
+                        document.getElementById("number").innerHTML = "Question Number: ".concat(question_info.Q_num).concat("/").concat(question_info.total_num_questions);
+                        document.getElementById("question").innerHTML = question_info.Q_question;
+                        document.getElementById("1").innerHTML = question_info.Q_choiceA;
+                        document.getElementById("2").innerHTML = question_info.Q_choiceB;
+                        document.getElementById("3").innerHTML = question_info.Q_choiceC;
+                    }
+                }
+            }
+        }
+
+        //gets answers from radio buttons
+        var form = document.forms['answers'];
+        var answer_num = "";
+        for( var i=0; i<form.length; i++ ){
+            if(( form[i].type ) == 'radio' && form[i].checked == true ){
+                answer_num = i;
+                form[i].checked = false;
+            }
+        }
+
+        //sends ajax request
+        con.open("POST","handleAJAX.php", true);
+        con.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        con.send("answer=".concat(answer_num));
+    }
+
+</script>
+
+<div style="text-align: center;"><h2 style="background-color: #0fffff;">-welcome to your daily quiz-</h2>
+
+    <div style="background-color: #0fffff;" id="json"></div>
+    <div style="background-color: #0fffff;" id="prev_answer"></div>
+
+    <div style="background-color: #0abcde;" id="number"></div>
+    <div style="background-color: #aaaaaa;" id="question"></div>
+
+    <form id="form" style="background-color: #e0ffff;" name="answers" action="javascript:submitAnswer()">
+    <table align="center">
+        <tr>
+            <td><input style="visibility:hidden;" id="answers1" name="answers" type="radio"></td>
+            <td><div id="1"></div></td>
+        </tr>
+        <tr>
+            <td><input style="visibility:hidden;" id="answers2" name="answers" type="radio"></td>
+            <td><div id="2"></div></td>
+        </tr>
+        <tr>
+            <td><input style="visibility:hidden;" id="answers3" name="answers" type="radio"></td>
+            <td><div id="3"></div></td>
+        </tr>
+
+    </table>
+        <input type="submit" value="Next">
+    </form>
+
+</div></div>
+
+
+</body>
+</html>

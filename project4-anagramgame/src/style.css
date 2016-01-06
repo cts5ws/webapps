@@ -1,0 +1,75 @@
+.cent {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+
+.tcontainer {
+    margin: auto;
+    display: table;
+}
+
+.trow {
+    text-align-all: left;
+    display: table-row;
+}
+
+.tcell {
+    background-color: whitesmoke;
+    text-align: center;
+    display: table-cell;
+    padding: 3px;
+    border: 1px solid;
+    width: 200px;
+}
+
+.btn {
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+}
+
+.defaultTextBox {
+    padding: 0;
+    height: 30px;
+    position: relative;
+    left: 0;
+    outline: none;
+    border: 1px solid #cdcdcd;
+    border-color: rgba(0,0,0,.15);
+    background-color: white;
+    font-size: 16px;
+}
+.advancedSearchTextbox {
+    width: 526px;
+    margin-right: -4px;
+}
+
+.div {
+    background-color: lightblue;
+    text-align: center;
+}
+
+.div1 {
+    background-color: whitesmoke;
+    text-align: center;
+}
